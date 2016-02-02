@@ -1,4 +1,4 @@
-FROM phusion/baseimage:0.9.18
+FROM phusion/baseimage:0.9.11
 MAINTAINER gfjardim <gfjardim@gmail.com>
 ENV DEBIAN_FRONTEND noninteractive
 ADD sources.list /etc/apt/sources.list
@@ -15,15 +15,21 @@ RUN usermod -u 99 nobody && \
 
 RUN apt-get update -q
 
-#install lab
-RUN apt-get install lab
-
 # Install Hamachi
 ADD https://secure.logmein.com/labs/logmein-hamachi-2.1.0.139-x64.tgz /tmp/hamachi.tgz
 RUN mkdir -p /opt/logmein-hamachi
 RUN tar -zxf /tmp/hamachi.tgz --strip-components 1 -C /opt/logmein-hamachi
-RUN cd /opt/logmein-hamachi
-RUN ./install.sh
+RUN ln -sf /opt/logmein-hamachi/hamachid /usr/bin/hamachi
+RUN rm /tmp/hamachi.tgz
 
+VOLUME /config
 
+# Add install.sh to execute during container startup
+RUN mkdir -p /etc/my_init.d
+ADD install.sh /etc/my_init.d/install.sh
+RUN chmod +x /etc/my_init.d/install.sh
 
+# Add hamachi.sh to runit
+RUN mkdir /etc/service/hamachi
+ADD hamachi.sh /etc/service/hamachi/run
+RUN chmod +x /etc/service/hamachi/run
