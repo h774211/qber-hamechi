@@ -3,6 +3,9 @@ MAINTAINER gfjardim <gfjardim@gmail.com>
 ENV DEBIAN_FRONTEND noninteractive
 ADD sources.list /etc/apt/sources.list
 
+# Set correct environment variables
+ENV HOME /root
+
 # Use baseimage-docker's init system
 CMD ["/sbin/my_init"]
 
