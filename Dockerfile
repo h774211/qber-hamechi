@@ -1,7 +1,7 @@
 FROM phusion/baseimage:0.9.18
 MAINTAINER gfjardim <gfjardim@gmail.com>
 ENV DEBIAN_FRONTEND noninteractive
-#ADD sources.list /etc/apt/sources.list
+ADD sources.list /etc/apt/sources.list
 
 # Set correct environment variables
 ENV HOME /root
