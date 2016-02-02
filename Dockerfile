@@ -32,4 +32,4 @@ RUN chmod +x /etc/my_init.d/install.sh
 # Add hamachi.sh to runit
 RUN mkdir /etc/service/hamachi
 ADD hamachi.sh /etc/service/hamachi/run
-RUN chmod +x /etc/service/hamachi/run
+#RUN chmod +x /etc/service/hamachi/run
